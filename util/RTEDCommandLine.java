@@ -26,13 +26,13 @@ import distance.RTED_InfoTree_Opt;
 
 /**
  * This is the command line access for running RTED algorithm.
- * 
+ *
  * @author Mateusz Pawlik
  *
  */
 public class RTEDCommandLine {
-	
-	private String helpMessage = 
+
+	private String helpMessage =
     		"\n" +
     		"Compute the edit distance between two trees.\n" +
     		"\n" +
@@ -143,7 +143,7 @@ public class RTEDCommandLine {
             "\n" +
             "    -m, --mapping\n" +
             "        compute the minimal edit mapping between two trees. There might\n" +
-            "        be multiple minimal edit mappings. This option computes only one\n" + 
+            "        be multiple minimal edit mappings. This option computes only one\n" +
             "        of them. The frst line of the output is the cost of the mapping.\n" +
             "        The following lines represent the edit operations. n and m are\n" +
             "        postorder IDs (beginning with 1) of nodes in the left-hand and\n" +
@@ -175,9 +175,9 @@ public class RTEDCommandLine {
     		"AUTHORS\n" +
     		"\n" +
     		"    Mateusz Pawlik, Nikolaus Augsten";
-	
+
 	private String wrongArgumentsMessage = "Wrong arguments. Try \"java -jar RTED.jar --help\" for help.";
-	
+
 	private LblTree lt1, lt2;
 	private int size1, size2;
 	private boolean run, custom, array, strategy, ifSwitch, sota, verbose, demaine, mapping;
@@ -185,25 +185,25 @@ public class RTEDCommandLine {
 	private String customStrategy, customStrategyArrayFile;
 	private RTED_InfoTree_Opt rted;
 	private double ted;
-	
+
 	/**
-	 * Main method 
-	 * 
+	 * Main method
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		RTEDCommandLine rtedCL = new RTEDCommandLine();
 		rtedCL.runCommandLine(args);
 	}
-	
+
 	/**
 	 * Run the command line with given arguments.
-	 * 
+	 *
 	 * @param args
 	 */
 	public void runCommandLine(String[] args) {
 		rted = new RTED_InfoTree_Opt(1, 1, 1);
-	
+
 		try {
 		for (int i = 0; i < args.length; i++) {
 			if (args[i].equals("--help") || args[i].equals("-h")) {
@@ -260,17 +260,17 @@ public class RTEDCommandLine {
 				System.exit(0);
 			}
 		}
-		
+
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("Too few arguments.");
             System.exit(0);
 		}
-		
+
 		if (!run) {
 			System.out.println(wrongArgumentsMessage);
 			System.exit(0);
 		}
-		
+
 		long time1 = (new Date()).getTime();
 		if (strategy) {
 			if (sota) {
@@ -306,14 +306,16 @@ public class RTEDCommandLine {
 		if (mapping) {
 			LinkedList<int[]> editMapping = rted.computeEditMapping();
 			for (int[] nodeAlignment : editMapping) {
-			    System.out.println(nodeAlignment[0] + "->" + nodeAlignment[1]);
+			    //System.out.println(nodeAlignment[0] + "-" + nodeAlignment[1]);
+			    System.out.print(nodeAlignment[0] + "-" + nodeAlignment[1] + " ");
 			}
+      System.out.println();
 		}
 	}
-		
+
 	/**
 	 * Parse two input trees from the command line.
-	 * 
+	 *
 	 * @param ts1
 	 * @param ts2
 	 */
@@ -334,10 +336,10 @@ public class RTEDCommandLine {
         }
         rted.init(lt1, lt2);
 	}
-	
+
 	/**
 	 * Parse two input trees from given files.
-	 * 
+	 *
 	 * @param fs1
 	 * @param fs2
 	 */
@@ -358,10 +360,10 @@ public class RTEDCommandLine {
         }
         rted.init(lt1, lt2);
 	}
-	
+
 	/**
 	 * Set custom costs.
-	 * 
+	 *
 	 * @param cds
 	 * @param cis
 	 * @param cms
@@ -374,12 +376,12 @@ public class RTEDCommandLine {
             System.exit(0);
 		}
 	}
-	
+
 	/**
 	 * Set the strategy to be entirely of the type given by str.
-	 * 
+	 *
 	 * @param str strategy type
-	 * @param ifSwitch if set to true the strategy will be applied to the currently bigger tree 
+	 * @param ifSwitch if set to true the strategy will be applied to the currently bigger tree
 	 */
 	private void setStrategy(String str, boolean ifSwitch) {
 		if (str.equals("left")) {
@@ -393,12 +395,12 @@ public class RTEDCommandLine {
             System.exit(0);
 		}
 	}
-	
+
 	/**
 	 * Set the strategy to be entirely of the type given by str.
-	 * 
+	 *
 	 * @param str strategy type
-	 * @param ifSwitch if set to true the strategy will be applied to the currently bigger tree 
+	 * @param ifSwitch if set to true the strategy will be applied to the currently bigger tree
 	 */
 	private void setStrategy(int str, boolean ifSwitch) {
 		try {
@@ -408,10 +410,10 @@ public class RTEDCommandLine {
             System.exit(0);
 		}
 	}
-	
+
 	/**
 	 * Set the strategy to the one given in strArrayFile.
-	 * 
+	 *
 	 * @param strArrayFile path to the file with the strategy
 	 */
 	private void setStrategy(String strArrayFile) {
@@ -422,15 +424,15 @@ public class RTEDCommandLine {
             System.exit(0);
 		}
 	}
-	
+
 	/**
 	 * Parse the strategy array.
-	 * 
+	 *
 	 * Array String format:
 	 * ? ? ? ?
-	 * ? ? ? ? 
-	 * ? ? ? ? 
-	 * 
+	 * ? ? ? ?
+	 * ? ? ? ?
+	 *
 	 * @param strategyArray
 	 * @return
 	 */
@@ -442,7 +444,7 @@ public class RTEDCommandLine {
 		Scanner s;
 		int value;
 		BufferedReader br;
-	
+
 		try {
 			br = new BufferedReader(new FileReader(fileWithStrategyArray));
 			line = br.readLine();
@@ -473,7 +475,7 @@ public class RTEDCommandLine {
 			for (int[] l : strVector) {
 				str[i] = l;
 				i++;
-			}			
+			}
 			if (str.length != size1) {
 				System.err.println("Trees sizes differ from the strategy array dimensions.");
 				System.exit(0);
@@ -483,7 +485,7 @@ public class RTEDCommandLine {
 			System.out.println("Something is wrong with strategy array file.");
 			System.exit(0);
 		}
-			
+
 		return str;
 	}
 }
