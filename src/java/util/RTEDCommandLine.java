@@ -187,16 +187,6 @@ public class RTEDCommandLine {
 	private double ted;
 
 	/**
-	 * Main method
-	 *
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		RTEDCommandLine rtedCL = new RTEDCommandLine();
-		rtedCL.runCommandLine(args);
-	}
-
-	/**
 	 * Run the command line with given arguments.
 	 *
 	 * @param args
