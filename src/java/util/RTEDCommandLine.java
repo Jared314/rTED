@@ -257,6 +257,8 @@ public class RTEDCommandLine {
 				mapping = true;
 			} else {
 				System.out.println(wrongArgumentsMessage);
+				System.out.println();
+				System.out.println(helpMessage);
 				System.exit(0);
 			}
 		}
@@ -268,6 +270,8 @@ public class RTEDCommandLine {
 
 		if (!run) {
 			System.out.println(wrongArgumentsMessage);
+			System.out.println();
+			System.out.println(helpMessage);
 			System.exit(0);
 		}
 
